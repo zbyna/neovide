@@ -47,7 +47,9 @@ impl KeyboardManager {
             } if self.ime_preedit.0.is_empty() => {
                 log::trace!("{:#?}", key_event);
                 if key_event.state == ElementState::Pressed {
-                    if let Some(text) = self.format_key(key_event) {
+                    if let Some(mut text) = self.format_key(key_event) {
+                        if text.contains("<C-)>") {
+                            text = "<C-]>".to_owned()}
                         log::trace!("Key pressed {} {:?}", text, self.modifiers.state());
                         tracy_named_frame!("keyboard input");
                         send_ui(SerialCommand::Keyboard(text));
