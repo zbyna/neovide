@@ -26,6 +26,9 @@ tracy-sampling = ["tracy-client-sys?/sampling"]
 tracy-code-transfer = ["tracy-client-sys?/code-transfer"]
 tracy-callstack-inlines = ["tracy-client-sys?/callstack-inlines"]
 
+[patch.crates-io]
+winit = { path = "../winit" }
+
 [dependencies]
 anyhow = { version = "1.0.75", features = ["backtrace"] }
 async-trait = "0.1.53"
