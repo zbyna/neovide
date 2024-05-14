@@ -27,6 +27,9 @@ tracy-code-transfer = ["tracy-client-sys?/code-transfer"]
 tracy-callstack-inlines = ["tracy-client-sys?/callstack-inlines"]
 d3d_debug = [] # Enable the D3D debug layer
 
+[patch.crates-io]
+winit = { path = "../winit" }
+
 [dependencies]
 anyhow = { version = "1.0.75", features = ["backtrace"] }
 async-trait = "0.1.53"
