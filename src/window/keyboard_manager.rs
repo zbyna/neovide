@@ -23,6 +23,10 @@ fn is_ascii_alphabetic_char(text: &str) -> bool {
     text.len() == 1 && text.chars().next().unwrap().is_ascii_alphabetic()
 }
 
+fn is_ascii_control_char(text: &str) -> bool {
+    text.len() == 1 && text.chars().next().unwrap().is_ascii_control()
+}
+
 pub struct KeyboardManager {
     modifiers: Modifiers,
     ime_preedit: (String, Option<(usize, usize)>),
@@ -241,7 +245,8 @@ impl KeyboardManager {
 
         let mut ret = String::new();
         (state.shift_key() && include_shift).then(|| ret += "S-");
-        state.control_key().then(|| ret += "C-");
+        if !is_ascii_control_char(text) {
+            state.control_key().then(|| ret += "C-");}
         (have_meta).then(|| ret += "M-");
         state.super_key().then(|| ret += "D-");
         ret
