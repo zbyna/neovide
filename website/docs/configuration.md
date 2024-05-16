@@ -119,6 +119,32 @@ this][scale-runtime] for a nice recipe to bind this to a hotkey.
 
 [scale-runtime]: faq.md#how-can-i-dynamically-change-the-scale-at-runtime
 
+#### Text Gamma and Contrast
+
+VimScript:
+
+```vim
+let g:neovide_text_gamma = 0.0
+let g:neovide_text_contrast = 0.5
+```
+
+Lua:
+
+```lua
+vim.g.neovide_text_gamma = 0.0
+vim.g.neovide_text_contrast = 0.5
+```
+
+**Available since 0.13.0.**
+
+You can fine tune the gamma and contrast of the text to your liking. The defaults is a good
+compromise that gives readable text on all backgrounds and an accurate color representation. But if
+that doesn't suit you, and you want to emulate the Alacritty font rendering for example you can use
+a gamma of 0.8 and a contrast of 0.1.
+
+Note a gamma of 0.0, means standard sRGB gamma or 2.2. Also note that these settings don't
+necessarily apply immediately due to caching of the fonts.
+
 #### Padding
 
 VimScript:
@@ -539,7 +565,7 @@ Lua:
 vim.g.neovide_input_macos_option_key_is_meta = 'only_left'
 ```
 
-**Available since 0.10.**
+**Available since 0.13.0.**
 
 Interprets <kbd>Alt</kbd> + <kbd>whatever</kbd> actually as `<M-whatever>`, instead of sending the
 actual special character to Neovim.
@@ -569,8 +595,8 @@ augroup ime_input
     autocmd!
     autocmd InsertLeave * execute "let g:neovide_input_ime=v:false"
     autocmd InsertEnter * execute "let g:neovide_input_ime=v:true"
-    autocmd CmdlineEnter [/\?] execute "let g:neovide_input_ime=v:false"
-    autocmd CmdlineLeave [/\?] execute "let g:neovide_input_ime=v:true"
+    autocmd CmdlineLeave [/\?] execute "let g:neovide_input_ime=v:false"
+    autocmd CmdlineEnter [/\?] execute "let g:neovide_input_ime=v:true"
 augroup END
 ```
 
