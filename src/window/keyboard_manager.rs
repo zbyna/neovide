@@ -23,6 +23,10 @@ fn is_ascii_alphabetic_char(text: &str) -> bool {
     text.len() == 1 && text.chars().next().unwrap().is_ascii_alphabetic()
 }
 
+fn is_ascii_control_char(text: &str) -> bool {
+    text.len() == 1 && text.chars().next().unwrap().is_ascii_control()
+}
+
 pub struct KeyboardManager {
     modifiers: Modifiers,
     ime_preedit: (String, Option<(usize, usize)>),
@@ -179,6 +183,10 @@ impl KeyboardManager {
     }
 
     fn format_key(&self, key_event: &KeyEvent) -> Option<String> {
+        if let Some(text) = key_event.text_with_all_modifiers() {
+            if is_ascii_control_char(text) {
+              return  Some( text.to_string() ) }
+        }
         if let Some(text) = get_special_key(key_event) {
             Some(self.format_key_text(text, true))
         } else {
